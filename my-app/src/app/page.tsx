@@ -118,6 +118,12 @@ export default function Home() {
       >
         Go to login
       </Link>
+      <Link
+        className="bg-yellow-500 rounded-md p-1 m-1 text-cyan-50"
+        href="/register"
+      >
+        Go to register
+      </Link>
     </main>
   );
 }
