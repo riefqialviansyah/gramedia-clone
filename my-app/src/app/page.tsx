@@ -1,5 +1,4 @@
 // import Image from "next/image";
-
 import Link from "next/link";
 
 export default function Home() {
@@ -111,8 +110,14 @@ export default function Home() {
     //     </a>
     //   </div>
     // </main>
-    <main className="bg-teal-300">
-      <h1>Home page</h1>
+    <main className=" flex flex-col items-center justify-center h-screen">
+      <h1 className="text-3xl">Home page</h1>
+      <Link
+        className="bg-orange-400 rounded-md p-1 m-1 text-cyan-50"
+        href="/login"
+      >
+        Go to login
+      </Link>
     </main>
   );
 }
