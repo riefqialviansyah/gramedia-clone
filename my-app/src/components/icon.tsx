@@ -97,21 +97,57 @@ export function ChevronDown() {
 }
 
 // test buat banner promo pakai component Image
-export function Contoh() {
+// export function Contoh() {
+//   return (
+//     <Image
+//       className="mr-20"
+//       src="/banner_promo/promo1.jpg"
+//       // width={200}
+//       // height={20}
+//       alt="oke"
+//       // placeholder="blur"
+//       quality={100}
+//       fill
+//       sizes="100vw"
+//       style={{
+//         objectFit: "cover",
+//       }}
+//     />
+//   );
+// }
+
+export function IconInstagram() {
+  return (
+    <Image
+      className=""
+      src="/instagram.svg"
+      width={35}
+      height={20}
+      alt="Instagram icon"
+    />
+  );
+}
+
+export function IconTwitter() {
+  return (
+    <Image
+      className=""
+      src="/twitter.svg"
+      width={35}
+      height={20}
+      alt="Twitter icon"
+    />
+  );
+}
+
+export function IconFacebook() {
   return (
     <Image
       className="mr-20"
-      src="/banner_promo/promo1.jpg"
-      // width={200}
-      // height={20}
-      alt="oke"
-      // placeholder="blur"
-      quality={100}
-      fill
-      sizes="100vw"
-      style={{
-        objectFit: "cover",
-      }}
+      src="/facebook.svg"
+      width={35}
+      height={20}
+      alt="Facebook icon"
     />
   );
 }
