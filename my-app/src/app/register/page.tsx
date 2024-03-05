@@ -10,7 +10,7 @@ export default function Register() {
       </nav>
       <main className="flex h-screen justify-center items-center">
         <div className="p-2 shadow-lg rounded-3xl w-1/2">
-          <h1 className="mt-2 text-2xl text-center italic bg-gray-100 rounded-2xl">
+          <h1 className="mt-2 mb-4 text-2xl p-1 text-center italic bg-gray-100 rounded-2xl">
             {`"A room without books is like a body without a soul"`}
           </h1>
           <FormRegister />

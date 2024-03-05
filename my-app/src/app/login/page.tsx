@@ -11,7 +11,7 @@ export default function Login() {
       <main className="flex h-screen">
         <div className="flex-1 border-r-2 flex justify-center items-center">
           <div className="w-5/6">
-            <h1 className="text-3xl p-1 text-center italic bg-gray-100 rounded-2xl">
+            <h1 className="text-2xl p-1 text-center italic bg-gray-100 rounded-2xl mb-4">
               {`"There is no friend as loyal as a book"`}
             </h1>
             <FormLogin />
