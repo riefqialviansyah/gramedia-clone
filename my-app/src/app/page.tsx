@@ -1,26 +1,16 @@
 import Navbar from "@/components/navbar";
-import promo1 from "../../public/banner_promo/promo1.jpg";
 import promo2 from "../../public/banner_promo/promo2.jpg";
 import promo3 from "../../public/banner_promo/promo3.jpg";
 import { Contoh } from "@/components/icon";
+import { BannerPromo1 } from "@/components/banner";
 
 export default function Home() {
   return (
     <>
       <Navbar />
-      <div className="border-2 mx-10 mt-32">
+      <div className=" mx-10 mt-32">
         <div className="grid grid-col-3 grid-flow-col gap-2">
-          <div
-            className="flex row-span-2 col-span-2 h-96 rounded-lg"
-            style={{
-              backgroundImage: `url(${promo1.src})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          >
-            {/* test buat banner promo pakai komponen Image */}
-            {/* <Contoh /> */}
-          </div>
+          <BannerPromo1 />
           <div
             className="bg-lime-300 rounded-lg"
             style={{

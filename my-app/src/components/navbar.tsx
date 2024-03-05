@@ -6,7 +6,7 @@ import SearchForm from "./search";
 export default function Navbar() {
   return (
     <>
-      <nav className="fixed top-0 border-b  shadow-md w-full bg-white h-24s">
+      <nav className="fixed z-10 top-0 border-b  shadow-md w-full bg-white h-24s">
         <div className="bg-sky-200 flex justify-end gap-1">
           <Help />
           <span className="mr-10 hover:cursor-pointer hover:scale-105 font-bold">
