@@ -15,7 +15,7 @@ export default function Icon() {
 export function Eye() {
   return (
     <Image
-      className="absolute top-5 right-5"
+      className="absolute top-4 right-5"
       src="/eye.svg"
       width={20}
       height={20}
@@ -27,7 +27,7 @@ export function Eye() {
 export function EyeOff() {
   return (
     <Image
-      className="absolute top-5 right-5"
+      className="absolute top-4 right-5"
       src="/eye-off.svg"
       width={20}
       height={20}

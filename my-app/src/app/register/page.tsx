@@ -1,12 +1,30 @@
+import { FormRegister } from "@/components/form";
+import Icon from "@/components/icon";
 import Link from "next/link";
 
 export default function Register() {
   return (
-    <main className=" flex flex-col items-center justify-center h-screen">
-      <h1 className="text-3xl">Register page</h1>
-      <Link className="bg-yellow-500 rounded-md p-1 m-1 text-cyan-50" href="/">
-        Go to home
-      </Link>
-    </main>
+    <>
+      <nav className="border-b p-3 shadow-md fixed w-full bg-white">
+        <Icon />
+      </nav>
+      <main className="flex h-screen justify-center items-center">
+        <div className="p-2 shadow-lg rounded-3xl w-1/2">
+          <h1 className="mt-2 text-2xl text-center italic bg-gray-100 rounded-2xl">
+            {`"A room without books is like a body without a soul"`}
+          </h1>
+          <FormRegister />
+          <p className="text-center">
+            Already have account?{" "}
+            <Link
+              className="hover:underline underline-offset-8 hover:text-emerald-400"
+              href={"/login"}
+            >
+              Login here
+            </Link>
+          </p>
+        </div>
+      </main>
+    </>
   );
 }
