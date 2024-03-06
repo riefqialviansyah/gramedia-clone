@@ -44,7 +44,6 @@ export function FormLogin() {
         <button
           onClick={(e) => {
             e.preventDefault();
-            console.log("Login");
           }}
           className="bg-blue-400 transition duration-500 ease-in-out text-white w-full rounded-md text-2xl p-1 hover:scale-105 hover:-translate-y-1 font-bold"
         >

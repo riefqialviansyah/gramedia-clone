@@ -1,8 +1,12 @@
 import UserModel from "@/db/models/user";
 
 export async function POST(request: Request) {
-  const inputUser = await request.json();
+  try {
+    const inputUser = await request.json();
 
-  const result = await UserModel.register(inputUser);
-  return Response.json(result);
+    const result = await UserModel.register(inputUser);
+    return Response.json(result);
+  } catch (error) {
+    return Response.json(error);
+  }
 }

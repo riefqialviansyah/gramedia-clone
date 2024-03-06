@@ -2,7 +2,7 @@ import { FormRegister } from "@/components/form";
 import Icon from "@/components/icon";
 import Link from "next/link";
 
-export default function Register() {
+export default async function Register() {
   return (
     <>
       <nav className="border-b p-3 shadow-md fixed w-full bg-white">
