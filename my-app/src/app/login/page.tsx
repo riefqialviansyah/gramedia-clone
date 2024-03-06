@@ -1,4 +1,5 @@
 import Icon from "@/components/icon";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 const baseUrl = process.env.BASE_URL as string;
 
@@ -20,6 +21,7 @@ export default async function Login() {
     const result = await response.json();
 
     console.log(result);
+    return redirect("/");
   };
 
   return (
