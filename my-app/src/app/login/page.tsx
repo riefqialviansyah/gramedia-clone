@@ -1,6 +1,7 @@
 import Icon from "@/components/icon";
 import { redirect } from "next/navigation";
 import Link from "next/link";
+import { cookies } from "next/headers";
 const baseUrl = process.env.BASE_URL as string;
 
 export default async function Login() {
@@ -20,7 +21,12 @@ export default async function Login() {
 
     const result = await response.json();
 
-    console.log(result);
+    if (!response.ok) {
+      return redirect("/login?error=" + result.error);
+    }
+
+    cookies().set("Authorization", `Bearer ${result.data.access_token}`);
+
     return redirect("/");
   };
 
