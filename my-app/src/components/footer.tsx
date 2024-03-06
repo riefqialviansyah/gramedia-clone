@@ -30,7 +30,16 @@ export default function Footer() {
         </div>
       </div>
       <div className="bg-sky-200 flex justify-center">
-        <span className="font-semibold">© 2024 PT. Gramedia Asri Media</span>
+        <span className="font-semibold">
+          © 2024 PT. Gramedia Asri Media ~ Crated by:{" "}
+          <a
+            className="italic text-sky-600"
+            href="https://github.com/riefqialviansyah"
+            target="blank"
+          >
+            riefqialviansyah
+          </a>
+        </span>
       </div>
     </footer>
   );
