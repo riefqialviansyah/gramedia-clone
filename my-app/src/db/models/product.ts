@@ -1,8 +1,7 @@
-import { ObjectId } from "mongodb";
 import { getCollection } from "../config";
-import { Product } from "@/interfaces/interface";
+import { IProduct } from "@/interfaces/interface";
 
-type NewProduct = Omit<Product, "_id">;
+type NewProduct = Omit<IProduct, "_id">;
 
 class ProductModel {
   static collection() {
@@ -19,7 +18,7 @@ class ProductModel {
   }
 
   static async getProduct() {
-    const products = (await this.collection().find().toArray()) as Product[];
+    const products = (await this.collection().find().toArray()) as IProduct[];
     return products;
   }
 }

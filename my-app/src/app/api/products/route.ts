@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   try {
     const result = await ProductModel.getProduct();
 
-    return Response.json({ data: result });
+    return Response.json(result);
   } catch (error) {
     console.log(error);
   }

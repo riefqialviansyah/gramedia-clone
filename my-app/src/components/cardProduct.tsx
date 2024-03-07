@@ -7,12 +7,23 @@ interface ProductCartProps {
 }
 
 export function CartProduct({ product }: ProductCartProps) {
+  const addWishlist = async () => {
+    try {
+      const newWishlist = {
+        productId: product._id,
+        userId: "belum diisi",
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div
       key={String(product._id)}
-      className="w-52 h-80 shadow-md rounded-lg relative"
+      className="w-52 h-96 shadow-md rounded-lg relative"
     >
-      <div className="border-2 w-42 p-1 h-56 ">
+      <div className="border-2 w-42 p-1 h-72 ">
         <div
           className="w-full h-full"
           style={{
@@ -29,10 +40,13 @@ export function CartProduct({ product }: ProductCartProps) {
             ? `${product.name.slice(0, 25)}.....`
             : product.name}
         </div>
-        <div className="text-base text-blue-600">
-          Rp {Number(product.price).toLocaleString("id-ID")}~
+        <div className="text-base text-blue-600 font-semibold">
+          Rp {Number(product.price).toLocaleString("id-ID")},-
         </div>
-        <button className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md absolute right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300">
+        <button
+          onClick={addWishlist}
+          className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md absolute right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300"
+        >
           +
         </button>
       </div>

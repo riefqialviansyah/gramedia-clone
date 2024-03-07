@@ -131,3 +131,15 @@ export function IconFacebook() {
     />
   );
 }
+
+export function Trash() {
+  return (
+    <Image
+      className=""
+      src="/trash-2.svg"
+      width={20}
+      height={20}
+      alt="Trash icon"
+    />
+  );
+}

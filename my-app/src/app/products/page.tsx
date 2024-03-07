@@ -1,14 +1,26 @@
-// import cover book
+"use client";
 import { CartProduct } from "@/components/cardProduct";
 import Footer from "@/components/footer";
 import { NavbarProducts } from "@/components/navbar";
-import { Product } from "@/interfaces/interface";
+import { IProduct } from "@/interfaces/interface";
+import { useEffect, useState } from "react";
 
-const baseUrl = process.env.BASE_URL;
+export default function Products() {
+  const [products, setProducts] = useState<IProduct[]>([]);
 
-export default async function Products() {
-  const response = await fetch(baseUrl + "products");
-  const products = await response.json();
+  const getProducts = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/products");
+      const result = (await response.json()) as IProduct[];
+      setProducts(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   return (
     <>
@@ -32,8 +44,8 @@ export default async function Products() {
           Welcome to gramedia, enjoy to found your book.
         </h2>
         <div className="p-2 flex gap-4 flex-wrap">
-          {products.data &&
-            products.data.map((product: Product) => {
+          {products &&
+            products.map((product: IProduct) => {
               return (
                 <CartProduct key={String(product._id)} product={product} />
               );

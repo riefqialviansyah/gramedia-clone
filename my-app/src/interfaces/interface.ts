@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 
-export interface Product {
+export interface IProduct {
   _id: ObjectId;
   author: string;
   name: string;
