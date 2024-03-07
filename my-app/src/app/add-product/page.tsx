@@ -2,6 +2,7 @@ import ClientError from "@/components/error";
 import Icon from "@/components/icon";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const baseUrl = process.env.BASE_URL as string;
 
@@ -38,8 +39,9 @@ export default function AddProduct() {
 
     const result = await response.json();
 
+    revalidatePath("/products");
     if (result.message) {
-      redirect("/add-product?message=" + result.message);
+      redirect("/products");
     }
   };
 
