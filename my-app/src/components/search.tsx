@@ -10,7 +10,7 @@ export default function SearchForm() {
         id=""
         placeholder="Cari Produk, Judul Buku, Penulis . . ."
       />
-      <div className="absolute -right-16 top-1">
+      <div className="absolute -right-16 top-2">
         <Search />
       </div>
     </form>

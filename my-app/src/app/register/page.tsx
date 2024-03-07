@@ -1,5 +1,9 @@
+import ClientError from "@/components/error";
 import Icon from "@/components/icon";
 import Link from "next/link";
+import { redirect } from "next/navigation";
+
+const baseUrl = process.env.BASE_URL as string;
 
 export default async function Register() {
   const registerHandler = async (formData: FormData) => {
@@ -8,7 +12,20 @@ export default async function Register() {
     const username = formData.get("username");
     const email = formData.get("email");
     const password = formData.get("password");
-    console.log({ name, username, email, password });
+
+    const response = await fetch(baseUrl + "users/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, username, email, password }),
+    });
+
+    const result = await response.json();
+    if (result.error) {
+      redirect("/register?error=" + result.error);
+    }
+    // redirect("/login");
   };
   return (
     <>
@@ -20,7 +37,7 @@ export default async function Register() {
           <h1 className="mt-2 mb-4 text-2xl p-1 text-center italic bg-gray-100 rounded-2xl">
             {`"A room without books is like a body without a soul"`}
           </h1>
-          <p className="text-center text-red-600 italic">Error message here</p>
+          <ClientError />
           <form className="p-4" action={registerHandler}>
             <div className="flex flex-col gap-5">
               <div>

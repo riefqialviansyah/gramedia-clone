@@ -6,6 +6,10 @@ import { cookies } from "next/headers";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
+
+    if (!body.email) throw { error: "Email is required" };
+    if (!body.password) throw { error: "Password is required" };
+
     const user = await UserModel.findUser(body.email);
 
     if (!user) {
@@ -40,6 +44,7 @@ export async function POST(request: Request) {
       data: { access_token },
     });
   } catch (error) {
-    console.log(error);
+    console.log(error, "<<<<<<<<<<<<<<<<<<");
+    return Response.json(error);
   }
 }

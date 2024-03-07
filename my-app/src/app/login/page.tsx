@@ -2,6 +2,7 @@ import Icon from "@/components/icon";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { cookies } from "next/headers";
+import ClientError from "@/components/error";
 const baseUrl = process.env.BASE_URL as string;
 
 export default async function Login() {
@@ -21,13 +22,13 @@ export default async function Login() {
 
     const result = await response.json();
 
-    if (!response.ok) {
+    if (result.error) {
       return redirect("/login?error=" + result.error);
     }
 
     cookies().set("Authorization", `Bearer ${result.data.access_token}`);
 
-    return redirect("/");
+    return redirect("/products");
   };
 
   return (
@@ -41,9 +42,7 @@ export default async function Login() {
             <h1 className="text-2xl p-1 text-center italic bg-gray-100 rounded-2xl mb-4">
               {`"There is no friend as loyal as a book"`}
             </h1>
-            <p className="text-center text-red-600 italic">
-              Error message here
-            </p>
+            <ClientError />
             <form className="p-2" action={handlerLogin}>
               <div className="flex flex-col gap-5">
                 <div>

@@ -51,7 +51,7 @@ export function Help() {
 export function Cart() {
   return (
     <Image
-      className="mr-20"
+      className=""
       src="/shopping-bag.svg"
       width={30}
       height={20}
@@ -63,7 +63,7 @@ export function Cart() {
 export function CartHover() {
   return (
     <Image
-      className="mr-20"
+      className=""
       src="/shopping-bag-hover.svg"
       width={30}
       height={20}
@@ -77,7 +77,7 @@ export function Search() {
     <Image
       className="mr-20"
       src="/search.svg"
-      width={30}
+      width={25}
       height={20}
       alt="Search icon"
     />
