@@ -38,9 +38,16 @@ export function NavbarProducts() {
           </span>
         </div>
         <div className="h-20 border flex items-center justify-between">
-          <Icon />
+          <div>
+            <Icon />
+          </div>
           <div className="flex gap-2">
-            <AnimateCart />
+            <div className="relative">
+              <AnimateCart />
+              <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
+                0
+              </span>
+            </div>
             <Link
               href={"/add-product"}
               className="hover:text-sky-400 hover:cursor-pointer w-25 font-bold text-xl text-center hover:underline underline-offset-8"

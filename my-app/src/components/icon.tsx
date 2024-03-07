@@ -51,7 +51,7 @@ export function Help() {
 export function Cart() {
   return (
     <Image
-      className=""
+      className="mr-2"
       src="/shopping-bag.svg"
       width={30}
       height={20}
@@ -63,7 +63,7 @@ export function Cart() {
 export function CartHover() {
   return (
     <Image
-      className=""
+      className="mr-2"
       src="/shopping-bag-hover.svg"
       width={30}
       height={20}
@@ -95,26 +95,6 @@ export function ChevronDown() {
     />
   );
 }
-
-// test buat banner promo pakai component Image
-// export function Contoh() {
-//   return (
-//     <Image
-//       className="mr-20"
-//       src="/banner_promo/promo1.jpg"
-//       // width={200}
-//       // height={20}
-//       alt="oke"
-//       // placeholder="blur"
-//       quality={100}
-//       fill
-//       sizes="100vw"
-//       style={{
-//         objectFit: "cover",
-//       }}
-//     />
-//   );
-// }
 
 export function IconInstagram() {
   return (
