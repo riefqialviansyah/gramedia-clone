@@ -1,7 +1,8 @@
+"use client";
+
 import Link from "next/link";
 import AnimateCart from "./cart";
-import Icon, { ChevronDown, Help } from "./icon";
-import SearchForm from "./search";
+import Icon, { Help } from "./icon";
 
 export default function NavbarHome() {
   return (
@@ -27,7 +28,7 @@ export default function NavbarHome() {
   );
 }
 
-export function NavbarProducts() {
+export function NavbarProducts({ totalWishlist }) {
   return (
     <>
       <nav className="fixed z-10 top-0 border-b  shadow-md w-full bg-white h-24s">
@@ -45,7 +46,7 @@ export function NavbarProducts() {
             <Link href={"/wishlist"} className="relative">
               <AnimateCart />
               <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
-                0
+                {totalWishlist}
               </span>
             </Link>
             <Link

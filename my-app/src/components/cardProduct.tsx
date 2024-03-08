@@ -1,18 +1,24 @@
 "use client";
 
-import { Product } from "@/interfaces/interface";
+import { IProduct } from "@/interfaces/interface";
 
 interface ProductCartProps {
-  product: Product;
+  product: IProduct;
 }
 
 export function CartProduct({ product }: ProductCartProps) {
   const addWishlist = async () => {
     try {
-      const newWishlist = {
-        productId: product._id,
-        userId: "belum diisi",
-      };
+      const response = await fetch("http://localhost:3000/api/add-wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product._id),
+      });
+      const result = await response.json();
+
+      console.log(result);
     } catch (error) {
       console.log(error);
     }

@@ -14,3 +14,12 @@ export interface IProduct {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export interface IWishlist {
+  _id: ObjectId;
+  userId: ObjectId;
+  productId: ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  detailProduct: IProduct;
+}
