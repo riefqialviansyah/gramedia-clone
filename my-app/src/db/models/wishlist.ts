@@ -48,6 +48,19 @@ class WishlistModel {
     return wishlist;
   }
 
+  static async getTotalWishlist(userId: string) {
+    const agg = [
+      {
+        $match: {
+          userId: new ObjectId(String(userId)),
+        },
+      },
+    ];
+    const wishlist = await this.collection().aggregate(agg).toArray();
+
+    return wishlist.length;
+  }
+
   static async delete(wishlistId: string) {
     await this.collection().deleteOne({
       _id: new ObjectId(String(wishlistId)),

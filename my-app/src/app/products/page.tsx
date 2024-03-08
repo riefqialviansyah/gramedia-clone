@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 
 export default function Products() {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [updateData, setUpdateData] = useState(false);
 
   const getProducts = async () => {
     try {
@@ -24,7 +25,7 @@ export default function Products() {
 
   return (
     <>
-      <NavbarProducts />
+      <NavbarProducts updateData={updateData} setUpdateData={setUpdateData} />
       <div className="mx-10 mt-32">
         <div className="flex justify-center">
           <form className="w-96 flex" action="">
@@ -47,7 +48,11 @@ export default function Products() {
           {products &&
             products.map((product: IProduct) => {
               return (
-                <CartProduct key={String(product._id)} product={product} />
+                <CartProduct
+                  key={String(product._id)}
+                  product={product}
+                  setUpdateData={setUpdateData}
+                />
               );
             })}
         </div>

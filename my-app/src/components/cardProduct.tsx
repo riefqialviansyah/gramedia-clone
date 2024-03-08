@@ -1,12 +1,14 @@
 "use client";
 
 import { IProduct } from "@/interfaces/interface";
+import { Dispatch, SetStateAction } from "react";
 
 interface ProductCartProps {
   product: IProduct;
+  setUpdateData: Dispatch<SetStateAction<boolean>>;
 }
 
-export function CartProduct({ product }: ProductCartProps) {
+export function CartProduct({ product, setUpdateData }: ProductCartProps) {
   const addWishlist = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/add-wishlist", {
@@ -17,7 +19,7 @@ export function CartProduct({ product }: ProductCartProps) {
         body: JSON.stringify(product._id),
       });
       const result = await response.json();
-
+      setUpdateData(true);
       console.log(result);
     } catch (error) {
       console.log(error);

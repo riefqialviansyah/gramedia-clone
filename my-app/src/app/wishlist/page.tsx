@@ -2,19 +2,17 @@
 
 import Footer from "@/components/footer";
 import { NavbarProducts } from "@/components/navbar";
-
 import { Trash } from "@/components/icon";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IWishlist } from "@/interfaces/interface";
 
 export default function Products() {
   const [wishlist, setWishlist] = useState<IWishlist[]>();
   const [total, setTotal] = useState(0);
+  const [updateData, setUpdateData] = useState(false);
 
   const getWishlist = async () => {
     try {
-      setTotal(0);
       const response = await fetch("http://localhost:3000/api/wishlist");
       const result = await response.json();
 
@@ -29,18 +27,16 @@ export default function Products() {
 
   const deteleWishlist = async (wishlistId: string) => {
     try {
-      const response = await fetch(
-        "http://localhost:3000/api/delete-wishlist",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(wishlistId),
-        }
-      );
-      const result = await response.json();
+      await fetch("http://localhost:3000/api/delete-wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(wishlistId),
+      });
+
       getWishlist();
+      setUpdateData(true);
     } catch (error) {
       console.log(error);
     }
@@ -52,13 +48,13 @@ export default function Products() {
 
   return (
     <>
-      <Link href={"products"}>
-        <NavbarProducts totalWishlist={wishlist?.length} />
-      </Link>
+      <div>
+        <NavbarProducts updateData={updateData} setUpdateData={setUpdateData} />
+      </div>
       <div className="mx-10 mt-32">
         <h2 className="text-2xl my-2 font-serif font-semibold">Tas Belanja</h2>
         <div className="flex gap-2">
-          <div className="shadow-lg w-2/3 rounded-lg">
+          <div className="shadow-lg w-2/3 rounded-lg min-h-80">
             {/* List */}
             {wishlist &&
               wishlist.map((product) => {
@@ -118,10 +114,10 @@ export default function Products() {
               })}
           </div>
           <div className="shadow w-1/3 rounded-lg h-60 flex flex-col justify-between">
-            <h1 className="text-4xl p-3 font-bold border-b-2">
+            <h1 className="text-3xl p-3 font-bold border-b-2">
               Rincian Belanja
             </h1>
-            <div className="flex justify-between p-2 font-bold items-center">
+            <div className="flex justify-between p-8 font-bold items-center">
               <p>Ringkasan Pembayaran</p>
               <span className="text-xl text-blue-600 font-semibold">
                 Rp {total.toLocaleString("id-ID")}

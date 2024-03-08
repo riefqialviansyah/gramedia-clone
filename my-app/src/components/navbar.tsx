@@ -3,6 +3,7 @@
 import Link from "next/link";
 import AnimateCart from "./cart";
 import Icon, { Help } from "./icon";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 export default function NavbarHome() {
   return (
@@ -28,7 +29,30 @@ export default function NavbarHome() {
   );
 }
 
-export function NavbarProducts({ totalWishlist }) {
+type PropsNavProduct = {
+  updateData: boolean;
+  setUpdateData: Dispatch<SetStateAction<boolean>>;
+};
+
+export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
+  const [total, setTotal] = useState(0);
+
+  const getWishlist = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/wishlist/total");
+      const result = await response.json();
+
+      setTotal(result);
+      setUpdateData(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getWishlist();
+  }, [updateData]);
+
   return (
     <>
       <nav className="fixed z-10 top-0 border-b  shadow-md w-full bg-white h-24s">
@@ -39,14 +63,14 @@ export function NavbarProducts({ totalWishlist }) {
           </span>
         </div>
         <div className="h-20 border flex items-center justify-between">
-          <div>
+          <Link href={"products"}>
             <Icon />
-          </div>
+          </Link>
           <div className="flex gap-2">
             <Link href={"/wishlist"} className="relative">
               <AnimateCart />
               <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
-                {totalWishlist}
+                {total}
               </span>
             </Link>
             <Link
