@@ -21,6 +21,14 @@ class ProductModel {
     const products = (await this.collection().find().toArray()) as IProduct[];
     return products;
   }
+
+  static async getProductByName(searchKey: string) {
+    const products = (await this.collection()
+      .find({ name: { $regex: searchKey, $options: "i" } })
+      .toArray()) as IProduct[];
+
+    return products;
+  }
 }
 
 export default ProductModel;

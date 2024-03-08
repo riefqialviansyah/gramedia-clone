@@ -37,7 +37,7 @@ type PropsNavProduct = {
 export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
   const [total, setTotal] = useState(0);
 
-  const getWishlist = async () => {
+  const getWishlistTotal = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/wishlist/total");
       const result = await response.json();
@@ -50,7 +50,7 @@ export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
   };
 
   useEffect(() => {
-    getWishlist();
+    getWishlistTotal();
   }, [updateData]);
 
   return (
