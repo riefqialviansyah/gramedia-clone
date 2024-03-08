@@ -17,9 +17,12 @@ export default function Products() {
       const result = await response.json();
 
       setWishlist(result.data);
+      setTotal(0);
+      let tmpTotal = 0;
       result.data?.forEach((el: IWishlist) => {
-        setTotal(Number(el.detailProduct.price) + total);
+        tmpTotal += Number(el.detailProduct.price);
       });
+      setTotal(tmpTotal);
     } catch (error) {
       console.log(error);
     }
@@ -120,7 +123,7 @@ export default function Products() {
             <div className="flex justify-between p-8 font-bold items-center">
               <p>Ringkasan Pembayaran</p>
               <span className="text-xl text-blue-600 font-semibold">
-                Rp {total.toLocaleString("id-ID")}
+                Rp {total.toLocaleString("id-ID")}, -
               </span>
             </div>
             <div className="flex justify-center self-end w-full mb-5">
