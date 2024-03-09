@@ -4,10 +4,17 @@ import Footer from "@/components/footer";
 import { NavbarProducts } from "@/components/navbar";
 import { Trash } from "@/components/icon";
 import { useEffect, useState } from "react";
-import { IWishlist } from "@/interfaces/interface";
+import { IProduct, IWishlist } from "@/interfaces/interface";
+import { ObjectId } from "mongodb";
+
+type GroupWishList = {
+  detailProduct: IProduct;
+  list: IWishlist[];
+  _id: ObjectId;
+};
 
 export default function Products() {
-  const [wishlist, setWishlist] = useState<IWishlist[]>();
+  const [wishlist, setWishlist] = useState<GroupWishList[]>();
   const [total, setTotal] = useState(0);
   const [updateData, setUpdateData] = useState(false);
 
@@ -16,26 +23,61 @@ export default function Products() {
       const response = await fetch("http://localhost:3000/api/wishlist");
       const result = await response.json();
 
+      // console.log(data, "<<<<<<<<<<");
       setWishlist(result.data);
-      setTotal(0);
-      let tmpTotal = 0;
-      result.data?.forEach((el: IWishlist) => {
-        tmpTotal += Number(el.detailProduct.price);
-      });
-      setTotal(tmpTotal);
+      // setTotal(0);
+      // let tmpTotal = 0;
+      // result.data?.forEach((el: IWishlist) => {
+      //   tmpTotal += Number(el.detailProduct.price);
+      // });
+      // setTotal(tmpTotal);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const deteleWishlist = async (wishlistId: string) => {
+  const deteleWishlist = async (productId: string) => {
     try {
       await fetch("http://localhost:3000/api/delete-wishlist", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(productId),
+      });
+
+      getWishlist();
+      setUpdateData(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const substractWishlist = async (wishlistId: string) => {
+    try {
+      await fetch("http://localhost:3000/api/substract-wishlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify(wishlistId),
+      });
+
+      getWishlist();
+      setUpdateData(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const increaseWishlist = async (productId: string) => {
+    try {
+      await fetch("http://localhost:3000/api/wishlist/increase", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(productId),
       });
 
       getWishlist();
@@ -84,21 +126,32 @@ export default function Products() {
                         <span>{product.detailProduct.author}</span>
                       </div>
                     </div>
-                    <div className="flex gap-4">
-                      <button className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300">
+                    <div className="flex gap-4 w-64">
+                      <button
+                        onClick={() => {
+                          substractWishlist(String(product.list[0]._id));
+                        }}
+                        className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300"
+                      >
                         -
                       </button>
-                      <span className="text-3xl font-semibold">0</span>
-                      <button className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300">
+                      <span className="text-3xl font-semibold">
+                        {product.list.length}
+                      </span>
+                      <button
+                        onClick={() => [increaseWishlist(String(product._id))]}
+                        className="bg-sky-500 flex justify-center rounded-full items-center border text-white text-2xl font-semibold w-10 h-10 shadow-md right-1 bottom-1 hover:scale-x-105 hover:-translate-y-1 duration-300"
+                      >
                         +
                       </button>
                     </div>
-                    <div className="flex flex-col justify-center">
+                    <div className="flex flex-col justify-center w-full items-center">
                       <p className="text-xl text-blue-600 font-semibold">
                         Rp.{" "}
-                        {Number(product.detailProduct.price).toLocaleString(
-                          "id-ID"
-                        )}
+                        {(
+                          product.list.length *
+                          Number(product.detailProduct.price)
+                        ).toLocaleString("id-ID")}
                         , -
                       </p>
                       <button

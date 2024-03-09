@@ -22,16 +22,49 @@ class WishlistModel {
   }
 
   static async getWishlist(userId: string) {
+    // agg lama
+    // const agg = [
+    //   {
+    //     $match: {
+    //       userId: new ObjectId(String(userId)),
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "Books",
+    //       localField: "productId",
+    //       foreignField: "_id",
+    //       as: "detailProduct",
+    //     },
+    //   },
+    //   {
+    //     $unwind: {
+    //       path: "$detailProduct",
+    //       preserveNullAndEmptyArrays: true,
+    //     },
+    //   },
+    // ];
+
+    // agg baru
+
     const agg = [
       {
         $match: {
-          userId: new ObjectId(String(userId)),
+          userId: new ObjectId("65e7f27f402da6bc1e708e7a"),
+        },
+      },
+      {
+        $group: {
+          _id: "$productId",
+          list: {
+            $addToSet: "$$ROOT",
+          },
         },
       },
       {
         $lookup: {
           from: "Books",
-          localField: "productId",
+          localField: "_id",
           foreignField: "_id",
           as: "detailProduct",
         },
@@ -43,6 +76,7 @@ class WishlistModel {
         },
       },
     ];
+
     const wishlist = await this.collection().aggregate(agg).toArray();
 
     return wishlist;
@@ -61,12 +95,20 @@ class WishlistModel {
     return wishlist.length;
   }
 
-  static async delete(wishlistId: string) {
+  static async delete(productId: string) {
+    await this.collection().deleteMany({
+      productId: new ObjectId(String(productId)),
+    });
+
+    return { message: "Success to delete wishlist" };
+  }
+
+  static async deleteOne(wishlistId: string) {
     await this.collection().deleteOne({
       _id: new ObjectId(String(wishlistId)),
     });
 
-    return { message: "Success to delete wishlist" };
+    return { message: "Success to delete one wishlist" };
   }
 }
 

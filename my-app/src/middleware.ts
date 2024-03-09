@@ -40,5 +40,7 @@ export const config = {
     "/api/add-wishlist",
     "/api/wishlist",
     "/api/wishlist/total",
+    "/api/substract-wishlist",
+    "/api/wishlist/increase",
   ],
 };
