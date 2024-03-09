@@ -2,15 +2,24 @@ import { verifyPassword } from "@/db/helpers/hash";
 import { createToken } from "@/db/helpers/jwt";
 import UserModel from "@/db/models/user";
 import { cookies } from "next/headers";
+import { ZodError } from "zod";
+
+export interface IInputLogin {
+  email: string;
+  password: string;
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json();
 
-    if (!body.email) throw { error: "Email is required" };
-    if (!body.password) throw { error: "Password is required" };
-
-    const user = await UserModel.findUser(body.email);
+    // if (!body.email) throw { error: "Email is required" };
+    // if (!body.password) throw { error: "Password is required" };
+    const inputLogin: IInputLogin = {
+      email: body.email,
+      password: body.password,
+    };
+    const user = await UserModel.login(inputLogin);
 
     if (!user) {
       return Response.json(
@@ -49,6 +58,12 @@ export async function POST(request: Request) {
       data: { access_token },
     });
   } catch (error) {
+    if (error instanceof ZodError) {
+      const err = error.issues[0].message;
+
+      return Response.json({ error: err }, { status: 400 });
+    }
+
     return Response.json(error);
   }
 }

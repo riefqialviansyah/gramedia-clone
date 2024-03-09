@@ -2,6 +2,7 @@ import { ObjectId } from "mongodb";
 import { getCollection } from "../config";
 import { hashPassword } from "../helpers/hash";
 import { z } from "zod";
+import { IInputLogin } from "@/app/api/users/login/route";
 
 type User = {
   _id: ObjectId;
@@ -21,13 +22,23 @@ const UserInputSchema = z.object({
   password: z.string().min(5, { message: "Password minumum 5 character" }),
 });
 
+const UserInputLoginSchema = z.object({
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(1, { message: "Password cannot empty" }),
+});
+
 class UserModel {
   static collection() {
     return getCollection("Users");
   }
 
-  static async findUser(email: string) {
-    return await this.collection().findOne({ email });
+  static async login(inputLogin: IInputLogin) {
+    const parseResult = UserInputLoginSchema.safeParse(inputLogin);
+    if (!parseResult.success) {
+      throw parseResult.error;
+    }
+
+    return await this.collection().findOne({ email: inputLogin.email });
   }
 
   static async findUsers() {
