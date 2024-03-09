@@ -1,6 +1,7 @@
 import { ObjectId } from "mongodb";
 import { getCollection } from "../config";
 import { hashPassword } from "../helpers/hash";
+import { z } from "zod";
 
 type User = {
   _id: ObjectId;
@@ -12,6 +13,13 @@ type User = {
 };
 
 type NewUser = Omit<User, "_id">;
+
+const UserInputSchema = z.object({
+  name: z.string().min(1, { message: "Full Name cannot empty" }),
+  username: z.string().min(1, { message: "Username cannot empty" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  password: z.string().min(5, { message: "Password minumum 5 character" }),
+});
 
 class UserModel {
   static collection() {
@@ -28,10 +36,15 @@ class UserModel {
 
   static async register(newUser: NewUser) {
     // manual validasi
-    if (!newUser.name) throw { error: "Full Name is required" };
-    if (!newUser.username) throw { error: "Username is required" };
-    if (!newUser.email) throw { error: "Email is required" };
-    if (!newUser.password) throw { error: "Password is required" };
+    // if (!newUser.name) throw { error: "Full Name is required" };
+    // if (!newUser.username) throw { error: "Username is required" };
+    // if (!newUser.email) throw { error: "Email is required" };
+    // if (!newUser.password) throw { error: "Password is required" };
+    const parseResult = UserInputSchema.safeParse(newUser);
+
+    if (!parseResult.success) {
+      throw parseResult.error;
+    }
 
     let user = await this.collection().findOne({ username: newUser.username });
     if (user) throw { error: "Username already used" };
