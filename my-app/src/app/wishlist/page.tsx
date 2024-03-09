@@ -23,14 +23,13 @@ export default function Products() {
       const response = await fetch("http://localhost:3000/api/wishlist");
       const result = await response.json();
 
-      // console.log(data, "<<<<<<<<<<");
       setWishlist(result.data);
-      // setTotal(0);
-      // let tmpTotal = 0;
-      // result.data?.forEach((el: IWishlist) => {
-      //   tmpTotal += Number(el.detailProduct.price);
-      // });
-      // setTotal(tmpTotal);
+      setTotal(0);
+      let tmpTotal = 0;
+      result.data?.forEach((el: GroupWishList) => {
+        tmpTotal += el.list.length * Number(el.detailProduct.price);
+      });
+      setTotal(tmpTotal);
     } catch (error) {
       console.log(error);
     }
