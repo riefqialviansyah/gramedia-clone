@@ -12,6 +12,7 @@ export default function Products() {
   const [searchKey, setSearchKey] = useState("");
 
   const [currentPage, setCurrentPage] = useState(0);
+  const [stateHasMore, setStatehasMore] = useState(true);
 
   const searchKeyHandler = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchKey(event.currentTarget.value);
@@ -44,6 +45,10 @@ export default function Products() {
       const result = (await response.json()) as IPagination;
       setProducts(products.concat(result.data));
 
+      if (products.length >= result.totalData) {
+        setStatehasMore(false);
+        return;
+      }
       // console.log(result.totalData, "<<<<<<<<<<");
     } catch (error) {
       console.log(error);
@@ -76,25 +81,13 @@ export default function Products() {
             </button>
           </form>
         </div>
-        {/* <div className="p-2 flex gap-4 flex-wrap min-h-96">
-          {products &&
-            products.map((product: IProduct) => {
-              return (
-                <CartProduct
-                  key={String(product._id)}
-                  product={product}
-                  setUpdateData={setUpdateData}
-                />
-              );
-            })}
-        </div> */}
         <div className="p-2 flex gap-4 flex-wrap min-h-96">
           <InfiniteScroll
             dataLength={products.length}
             next={getProducts}
             style={{ display: "flex", flexWrap: "wrap", gap: 16 }}
             //To put endMessage and loader to the top.
-            hasMore={true}
+            hasMore={stateHasMore}
             loader={<h4>Loading...</h4>}
             scrollableTarget="scrollableDiv"
             endMessage={
@@ -115,31 +108,6 @@ export default function Products() {
               })}
           </InfiniteScroll>
         </div>
-        {/* <div className="p-2 flex gap-4">
-          <InfiniteScroll
-            dataLength={items.length}
-            next={fetchMoreData}
-            style={{ display: "flex", flexWrap: "wrap" }}
-            //To put endMessage and loader to the top.
-            hasMore={true}
-            loader={<h4>Loading...</h4>}
-            scrollableTarget="scrollableDiv"
-          >
-            {items.map((_, index) => (
-              <div
-                style={{
-                  height: 30,
-                  border: "1px solid green",
-                  margin: 6,
-                  padding: 8,
-                }}
-                key={index}
-              >
-                div - #{index}
-              </div>
-            ))}
-          </InfiniteScroll>
-        </div> */}
       </div>
       <Footer />
     </>
