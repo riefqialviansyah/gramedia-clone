@@ -4,6 +4,6 @@ export async function POST(request: Request) {
   const wishlistId = await request.json();
   //   console.log(wishlistId, "<<< controller");
   const result = await WishlistModel.deleteOne(wishlistId);
-  console.log(result, "<<< di controller");
+  // console.log(result, "<<< di controller");
   return Response.json(result);
 }

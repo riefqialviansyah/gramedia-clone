@@ -68,7 +68,7 @@ export default function Products() {
             </button>
           </form>
         </div>
-        <div className="p-2 flex gap-4 flex-wrap">
+        <div className="p-2 flex gap-4 flex-wrap min-h-96">
           {products &&
             products.map((product: IProduct) => {
               return (

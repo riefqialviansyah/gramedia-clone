@@ -76,7 +76,7 @@ export default async function Home() {
             })}
           <Link
             href={"/products"}
-            className="text-2xl border border-sky-300 text-center p-2 rounded-xl text-sky-500 font-bold"
+            className="text-2xl border border-sky-300 text-center p-2 rounded-xl text-sky-500 font-bold hover:-translate-y-1 hover:scale-105 duration-200 hover:bg-sky-400 hover:text-white"
           >
             See all
           </Link>

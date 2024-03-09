@@ -37,8 +37,8 @@ export default function Products() {
 
   const deteleWishlist = async (productId: string) => {
     try {
-      await fetch("http://localhost:3000/api/delete-wishlist", {
-        method: "POST",
+      await fetch("http://localhost:3000/api/wishlist/delete", {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
@@ -54,7 +54,7 @@ export default function Products() {
 
   const substractWishlist = async (wishlistId: string) => {
     try {
-      await fetch("http://localhost:3000/api/substract-wishlist", {
+      await fetch("http://localhost:3000/api/wishlist/substract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

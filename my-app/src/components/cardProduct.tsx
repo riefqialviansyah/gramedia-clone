@@ -13,7 +13,7 @@ interface ProductCartProps {
 export function CartProduct({ product, setUpdateData }: ProductCartProps) {
   const addWishlist = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/add-wishlist", {
+      const response = await fetch("http://localhost:3000/api/wishlist/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

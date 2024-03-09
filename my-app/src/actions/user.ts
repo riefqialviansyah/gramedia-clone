@@ -10,7 +10,11 @@ export async function logout() {
 }
 
 export async function redirectToLogin() {
-  redirect("login");
+  redirect("/login");
+}
+
+export async function redirectToWishlist() {
+  redirect("/wishlist");
 }
 
 export async function isLogin() {

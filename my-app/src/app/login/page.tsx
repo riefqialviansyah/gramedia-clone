@@ -33,9 +33,9 @@ export default async function Login() {
 
   return (
     <>
-      <nav className="border-b p-3 shadow-md fixed w-full bg-white">
+      <Link href={"/"} className="border-b p-3 shadow-md fixed w-full bg-white">
         <Icon />
-      </nav>
+      </Link>
       <main className="flex h-screen">
         <div className="flex-1 border-r-2 flex justify-center items-center">
           <div className="w-5/6">

@@ -3,7 +3,7 @@ import WishlistModel from "@/db/models/wishlist";
 export async function GET(request: Request) {
   try {
     const userId = request.headers.get("x-id-user") as string;
-    console.log(userId, "<<<<<<< id user di controller total wishlist<");
+    // console.log(userId, "<<<<<<< id user di controller total wishlist<");
     if (!userId) {
       return Response.json(0);
     }

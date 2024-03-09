@@ -25,13 +25,13 @@ export default async function Register() {
     if (result.error) {
       redirect("/register?error=" + result.error);
     }
-    // redirect("/login");
+    redirect("/login");
   };
   return (
     <>
-      <nav className="border-b p-3 shadow-md fixed w-full bg-white">
+      <Link href={"/"} className="border-b p-3 shadow-md fixed w-full bg-white">
         <Icon />
-      </nav>
+      </Link>
       <main className="flex h-screen justify-center items-center">
         <div className="p-2 shadow-lg rounded-3xl w-1/2">
           <h1 className="mt-2 mb-4 text-2xl p-1 text-center italic bg-gray-100 rounded-2xl">

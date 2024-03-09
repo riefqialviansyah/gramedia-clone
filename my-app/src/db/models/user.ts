@@ -8,6 +8,7 @@ type User = {
   username: string;
   email: string;
   password: string;
+  role: string;
 };
 
 type NewUser = Omit<User, "_id">;
@@ -41,7 +42,11 @@ class UserModel {
     if (newUser.password.length < 5)
       throw { error: "Minimum lengt of password is 5 character" };
 
-    newUser = { ...newUser, password: hashPassword(newUser.password) };
+    newUser = {
+      ...newUser,
+      password: hashPassword(newUser.password),
+      role: "user",
+    };
     await this.collection().insertOne(newUser);
 
     return { message: "Success create user" };
