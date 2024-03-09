@@ -6,6 +6,8 @@ import { IPagination, IProduct } from "@/interfaces/interface";
 import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 export default function Products() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [updateData, setUpdateData] = useState(false);
@@ -22,13 +24,9 @@ export default function Products() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/api/search-product", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(searchKey),
-      });
+      const response = await fetch(
+        baseUrl + "search-product?search=" + searchKey
+      );
       const result = (await response.json()) as IProduct[];
       setProducts(result);
     } catch (error) {
@@ -39,7 +37,7 @@ export default function Products() {
   const getProducts = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/api/products?page=" + (currentPage + 1)
+        baseUrl + "products?page=" + (currentPage + 1)
       );
       setCurrentPage(currentPage + 1);
       const result = (await response.json()) as IPagination;
@@ -58,7 +56,7 @@ export default function Products() {
   useEffect(() => {
     getProducts();
   }, []);
-
+  // console.log(baseUrl, "<<<<<<<<<<< next basuurl");
   return (
     <>
       <NavbarProducts updateData={updateData} setUpdateData={setUpdateData} />

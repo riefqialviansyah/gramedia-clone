@@ -1,14 +1,33 @@
 import { ObjectId } from "mongodb";
 import { getCollection } from "../config";
 import { IWishlist } from "@/interfaces/interface";
+import { z } from "zod";
+
+interface CheckNewWishList {
+  productId: string;
+  userId: string;
+}
 
 type NewWishList = Omit<IWishlist, "_id" | "detailProduct">;
+
+const InputWishlistSchema = z.object({
+  userId: z.string().min(1, { message: "UserId is required" }),
+  productId: z.string().min(1, { message: "ProductId is required" }),
+});
 
 class WishlistModel {
   static collection() {
     return getCollection("Wishlists");
   }
   static async addWishlist(productId: string, userId: string) {
+    const cekInputWishlist: CheckNewWishList = { productId, userId };
+    const parseResult = InputWishlistSchema.safeParse(cekInputWishlist);
+    if (!parseResult.success) {
+      throw parseResult.error;
+    }
+
+    // console.log("lewat sini<<<<<<<");
+
     const newWishList: NewWishList = {
       productId: new ObjectId(productId),
       userId: new ObjectId(userId),
@@ -95,9 +114,16 @@ class WishlistModel {
     return wishlist.length;
   }
 
-  static async delete(productId: string) {
+  static async delete(productId: string, userId: string) {
     await this.collection().deleteMany({
-      productId: new ObjectId(String(productId)),
+      $and: [
+        {
+          productId: new ObjectId(String(productId)),
+        },
+        {
+          userId: new ObjectId(String(userId)),
+        },
+      ],
     });
 
     return { message: "Success to delete wishlist" };

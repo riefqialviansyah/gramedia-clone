@@ -1,11 +1,12 @@
 "use client";
 
 import { redirectToLogin, redirectToWishlist } from "@/actions/user";
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export default function AddToCart({ productId }: { productId: string }) {
   const addWishlist = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist/add", {
+      const response = await fetch(baseUrl + "wishlist/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -13,7 +14,7 @@ export default function AddToCart({ productId }: { productId: string }) {
         body: JSON.stringify(productId),
       });
       const result = await response.json();
-      console.log(result, "<<<<<<<<<<<<<<< hasil add to cart<");
+      // console.log(result, "<<<<<<<<<<<<<<< hasil add to cart<");
       if (result.message == "Invalid token") {
         redirectToLogin();
       } else {

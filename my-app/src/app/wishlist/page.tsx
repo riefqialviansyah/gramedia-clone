@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import { IProduct, IWishlist } from "@/interfaces/interface";
 import { ObjectId } from "mongodb";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 type GroupWishList = {
   detailProduct: IProduct;
   list: IWishlist[];
@@ -20,7 +22,7 @@ export default function Products() {
 
   const getWishlist = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist");
+      const response = await fetch(baseUrl + "wishlist");
       const result = await response.json();
 
       setWishlist(result.data);
@@ -37,7 +39,7 @@ export default function Products() {
 
   const deteleWishlist = async (productId: string) => {
     try {
-      await fetch("http://localhost:3000/api/wishlist/delete", {
+      await fetch(baseUrl + "wishlist/delete", {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -54,7 +56,7 @@ export default function Products() {
 
   const substractWishlist = async (wishlistId: string) => {
     try {
-      await fetch("http://localhost:3000/api/wishlist/substract", {
+      await fetch(baseUrl + "wishlist/substract", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -71,7 +73,7 @@ export default function Products() {
 
   const increaseWishlist = async (productId: string) => {
     try {
-      await fetch("http://localhost:3000/api/wishlist/increase", {
+      await fetch(baseUrl + "wishlist/increase", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -89,7 +91,7 @@ export default function Products() {
   useEffect(() => {
     getWishlist();
   }, []);
-
+  // console.log(baseUrl, "<<<<<<<<< baseurl di wishlist next");
   return (
     <>
       <div>

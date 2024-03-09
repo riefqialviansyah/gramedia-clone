@@ -1,5 +1,6 @@
 import WishlistModel from "@/db/models/wishlist";
 import { redirect } from "next/navigation";
+import { ZodError } from "zod";
 
 export async function POST(request: Request) {
   try {
@@ -9,9 +10,16 @@ export async function POST(request: Request) {
     const result = await WishlistModel.addWishlist(productId, userId);
     return Response.json(result);
   } catch (error) {
-    console.log(error, "Invalid token");
+    if (error instanceof ZodError) {
+      const err = error.issues[0].path + " " + error.issues[0].message;
+
+      return Response.json({ error: err }, { status: 400 });
+    }
+
+    console.log(error);
     if (error == "Invalid token") {
       redirect("/login");
     }
+    return Response.json({ error });
   }
 }

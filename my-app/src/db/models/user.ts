@@ -18,12 +18,18 @@ type NewUser = Omit<User, "_id">;
 const UserInputSchema = z.object({
   name: z.string().min(1, { message: "Full Name cannot empty" }),
   username: z.string().min(1, { message: "Username cannot empty" }),
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z
+    .string()
+    .min(1, { message: "Email cannot empty" })
+    .email({ message: "Invalid email address" }),
   password: z.string().min(5, { message: "Password minumum 5 character" }),
 });
 
 const UserInputLoginSchema = z.object({
-  email: z.string().email({ message: "Invalid email address" }),
+  email: z
+    .string()
+    .min(1, { message: "Email cannot empty" })
+    .email({ message: "Invalid email address" }),
   password: z.string().min(1, { message: "Password cannot empty" }),
 });
 
