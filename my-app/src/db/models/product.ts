@@ -22,12 +22,30 @@ class ProductModel {
     return products;
   }
 
+  static async getProductPreview() {
+    const agg = [
+      {
+        $limit: 5,
+      },
+    ];
+    const products = (await this.collection()
+      .aggregate(agg)
+      .toArray()) as IProduct[];
+    return products;
+  }
+
   static async getProductByName(searchKey: string) {
     const products = (await this.collection()
       .find({ name: { $regex: searchKey, $options: "i" } })
       .toArray()) as IProduct[];
 
     return products;
+  }
+
+  static async findBySlug(slug: string) {
+    const product = await this.collection().findOne({ slug });
+
+    return product;
   }
 }
 

@@ -36,15 +36,19 @@ export async function POST(request: Request) {
       );
     }
 
-    const access_token = createToken({ _id: user._id, email: user.email });
+    const access_token = createToken({
+      _id: user._id,
+      email: user.email,
+      role: user.role,
+    });
 
+    // set cookies froms server
     cookies().set("Authorization", `Bearer ${access_token}`);
 
     return Response.json({
       data: { access_token },
     });
   } catch (error) {
-    console.log(error, "<<<<<<<<<<<<<<<<<<");
     return Response.json(error);
   }
 }

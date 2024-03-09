@@ -2,10 +2,12 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyJose } from "./db/helpers/jwt";
+import { redirect } from "next/navigation";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
   const token = cookies().get("Authorization")?.value.split(" ")[1];
+
   if (!token) {
     return NextResponse.json(
       {
@@ -17,7 +19,11 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const decodeToken = await verifyJose<{ _id: string; email: string }>(token);
+  const decodeToken = await verifyJose<{
+    _id: string;
+    email: string;
+    role: string;
+  }>(token);
   const requestHeaders = new Headers(request.headers);
 
   requestHeaders.set("x-id-user", decodeToken._id);
@@ -36,10 +42,8 @@ export async function middleware(request: NextRequest) {
 // See "Matching Paths" below to learn more
 export const config = {
   matcher: [
-    "/api/products/:path*",
     "/api/add-wishlist",
-    "/api/wishlist",
-    "/api/wishlist/total",
+    "/api/wishlist/:path*",
     "/api/substract-wishlist",
     "/api/wishlist/increase",
   ],

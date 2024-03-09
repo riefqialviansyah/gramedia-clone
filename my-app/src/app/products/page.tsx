@@ -3,7 +3,7 @@ import { CartProduct } from "@/components/cardProduct";
 import Footer from "@/components/footer";
 import { NavbarProducts } from "@/components/navbar";
 import { IProduct } from "@/interfaces/interface";
-import { SyntheticEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Products() {
   const [products, setProducts] = useState<IProduct[]>([]);

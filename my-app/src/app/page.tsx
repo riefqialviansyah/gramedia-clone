@@ -6,8 +6,15 @@ import { BannerPromo1 } from "@/components/banner";
 import cover_naruto from "../../public/cover_books/cover-naruto.jpg";
 import Footer from "@/components/footer";
 import NavbarHome from "@/components/navbar";
+import { IProduct } from "@/interfaces/interface";
+import Link from "next/link";
 
-export default function Home() {
+const baseUrl = process.env.BASE_URL as string;
+
+export default async function Home() {
+  const response = await fetch(baseUrl + "products/preview");
+  const product = await response.json();
+
   return (
     <>
       <NavbarHome />
@@ -34,187 +41,45 @@ export default function Home() {
         <h2 className="text-3xl my-2 font-medium">
           Rekomendation Gramedia For You
         </h2>
-        <div className="p-2 flex gap-4 flex-wrap">
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
-          <div className="w-52 h-80 shadow-md rounded-lg">
-            <div className="border-2 w-42 p-1 h-56">
-              <div
-                className="w-full h-full"
-                style={{
-                  backgroundImage: `url(${cover_naruto.src})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></div>
-            </div>
-            <div className="p-1 ml-1">
-              <div className="text-sm font-light">MASASHI KISHIMOTO</div>
-              <div className="text-sm font-semibold">
-                Naruto Bind Up Edition 02
-              </div>
-              <div className="text-base text-blue-600">Rp 45.000</div>
-              <div className="text-xs line-through italic">Rp. 60.000</div>
-            </div>
-          </div>
+        <div className="p-2 flex gap-4 flex-wrap items-center">
+          {product.data &&
+            product.data.map((product: IProduct) => {
+              return (
+                <div
+                  key={String(product._id)}
+                  className="w-52 h-96 shadow-md rounded-lg"
+                >
+                  <div className="border-2 w-42 p-1 h-72">
+                    <div
+                      className="w-full h-full"
+                      style={{
+                        backgroundImage: `url(${product.thumbnail})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                    ></div>
+                  </div>
+                  <div className="p-1 ml-1">
+                    <div className="text-sm font-light">{product.author}</div>
+                    <div className="text-sm font-semibold">
+                      {" "}
+                      {product.name.length > 25
+                        ? `${product.name.slice(0, 25)}.....`
+                        : product.name}
+                    </div>
+                    <div className="text-base text-blue-600">
+                      Rp {Number(product.price).toLocaleString("id-ID")},-
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          <Link
+            href={"/products"}
+            className="text-2xl border border-sky-300 text-center p-2 rounded-xl text-sky-500 font-bold"
+          >
+            See all
+          </Link>
         </div>
       </div>
       <Footer />

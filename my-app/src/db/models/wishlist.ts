@@ -50,7 +50,7 @@ class WishlistModel {
     const agg = [
       {
         $match: {
-          userId: new ObjectId("65e7f27f402da6bc1e708e7a"),
+          userId: new ObjectId(String(userId)),
         },
       },
       {

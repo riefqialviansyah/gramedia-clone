@@ -4,6 +4,7 @@ import Link from "next/link";
 import AnimateCart from "./cart";
 import Icon, { Help } from "./icon";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { isLogin, logout } from "@/actions/user";
 
 export default function NavbarHome() {
   return (
@@ -36,6 +37,8 @@ type PropsNavProduct = {
 
 export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
   const [total, setTotal] = useState(0);
+  const [hasLogin, setHasLogin] = useState(false);
+  const [role, setRole] = useState("");
 
   const getWishlistTotal = async () => {
     try {
@@ -50,7 +53,14 @@ export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
   };
 
   useEffect(() => {
-    getWishlistTotal();
+    (async () => {
+      const result = await isLogin();
+      setHasLogin(result.status);
+      if (result.status) {
+        getWishlistTotal();
+      }
+      setRole(result.role);
+    })();
   }, [updateData]);
 
   return (
@@ -63,28 +73,44 @@ export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
           </span>
         </div>
         <div className="h-20 border flex items-center justify-between">
-          <Link href={"products"}>
+          <Link href={"/products"}>
             <Icon />
           </Link>
           <div className="flex gap-2">
-            <Link href={"/wishlist"} className="relative">
-              <AnimateCart />
-              <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
-                {total}
-              </span>
-            </Link>
-            <Link
-              href={"/add-product"}
-              className="hover:text-sky-400 hover:cursor-pointer w-25 font-bold text-xl text-center hover:underline underline-offset-8"
-            >
-              Add Product
-            </Link>
-            <Link
-              href={"/"}
-              className="hover:text-sky-400 hover:cursor-pointer w-20 font-bold text-xl text-center hover:underline underline-offset-8 mr-20"
-            >
-              Logout
-            </Link>
+            {hasLogin ? (
+              <Link href={"/wishlist"} className="relative mr-10">
+                <AnimateCart />
+                <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
+                  {total}
+                </span>
+              </Link>
+            ) : (
+              ""
+            )}
+            {role == "admin" ? (
+              <Link
+                href={"/add-product"}
+                className="hover:text-sky-400 hover:cursor-pointer w-25 font-bold text-xl text-center hover:underline underline-offset-8"
+              >
+                Add Product
+              </Link>
+            ) : (
+              ""
+            )}
+            {hasLogin ? (
+              <>
+                <div
+                  onClick={() => {
+                    logout();
+                  }}
+                  className="hover:text-sky-400 hover:cursor-pointer w-20 font-bold text-xl text-center hover:underline underline-offset-8 mr-20"
+                >
+                  Logout
+                </div>
+              </>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </nav>
