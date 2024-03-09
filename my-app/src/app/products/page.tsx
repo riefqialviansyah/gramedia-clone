@@ -2,13 +2,16 @@
 import { CartProduct } from "@/components/cardProduct";
 import Footer from "@/components/footer";
 import { NavbarProducts } from "@/components/navbar";
-import { IProduct } from "@/interfaces/interface";
+import { IPagination, IProduct } from "@/interfaces/interface";
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Products() {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [updateData, setUpdateData] = useState(false);
   const [searchKey, setSearchKey] = useState("");
+
+  const [currentPage, setCurrentPage] = useState(0);
 
   const searchKeyHandler = (event: React.FormEvent<HTMLInputElement>) => {
     setSearchKey(event.currentTarget.value);
@@ -34,9 +37,14 @@ export default function Products() {
 
   const getProducts = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/products");
-      const result = (await response.json()) as IProduct[];
-      setProducts(result);
+      const response = await fetch(
+        "http://localhost:3000/api/products?page=" + (currentPage + 1)
+      );
+      setCurrentPage(currentPage + 1);
+      const result = (await response.json()) as IPagination;
+      setProducts(products.concat(result.data));
+
+      // console.log(result.totalData, "<<<<<<<<<<");
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +76,7 @@ export default function Products() {
             </button>
           </form>
         </div>
-        <div className="p-2 flex gap-4 flex-wrap min-h-96">
+        {/* <div className="p-2 flex gap-4 flex-wrap min-h-96">
           {products &&
             products.map((product: IProduct) => {
               return (
@@ -79,7 +87,59 @@ export default function Products() {
                 />
               );
             })}
+        </div> */}
+        <div className="p-2 flex gap-4 flex-wrap min-h-96">
+          <InfiniteScroll
+            dataLength={products.length}
+            next={getProducts}
+            style={{ display: "flex", flexWrap: "wrap", gap: 16 }}
+            //To put endMessage and loader to the top.
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scrollableDiv"
+            endMessage={
+              <p style={{ textAlign: "center" }}>
+                <b>Yay! You have seen it all</b>
+              </p>
+            }
+          >
+            {products &&
+              products.map((product: IProduct) => {
+                return (
+                  <CartProduct
+                    key={String(product._id)}
+                    product={product}
+                    setUpdateData={setUpdateData}
+                  />
+                );
+              })}
+          </InfiniteScroll>
         </div>
+        {/* <div className="p-2 flex gap-4">
+          <InfiniteScroll
+            dataLength={items.length}
+            next={fetchMoreData}
+            style={{ display: "flex", flexWrap: "wrap" }}
+            //To put endMessage and loader to the top.
+            hasMore={true}
+            loader={<h4>Loading...</h4>}
+            scrollableTarget="scrollableDiv"
+          >
+            {items.map((_, index) => (
+              <div
+                style={{
+                  height: 30,
+                  border: "1px solid green",
+                  margin: 6,
+                  padding: 8,
+                }}
+                key={index}
+              >
+                div - #{index}
+              </div>
+            ))}
+          </InfiniteScroll>
+        </div> */}
       </div>
       <Footer />
     </>

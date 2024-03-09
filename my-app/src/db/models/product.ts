@@ -1,5 +1,5 @@
 import { getCollection } from "../config";
-import { IProduct } from "@/interfaces/interface";
+import { IPagination, IProduct } from "@/interfaces/interface";
 
 type NewProduct = Omit<IProduct, "_id">;
 
@@ -17,9 +17,45 @@ class ProductModel {
     return { message: "Success add new book" };
   }
 
-  static async getProduct() {
-    const products = (await this.collection().find().toArray()) as IProduct[];
-    return products;
+  static async getProduct(page: number) {
+    const dataPerpage = 3;
+    const skipData = dataPerpage * page - dataPerpage;
+
+    const aggTotalData = [
+      {
+        $group: {
+          _id: null,
+          count: {
+            $count: {},
+          },
+        },
+      },
+    ];
+
+    const agg = [
+      {
+        $skip: skipData,
+      },
+      {
+        $limit: dataPerpage,
+      },
+    ];
+
+    const totalData = await this.collection().aggregate(aggTotalData).toArray();
+
+    const products = (await this.collection()
+      .aggregate(agg)
+      .toArray()) as IProduct[];
+
+    const result: IPagination = {
+      data: products,
+      currentPage: page,
+      currentData: products.length,
+      totalData: totalData[0].count,
+      totalPage: Math.ceil(totalData[0].count / dataPerpage),
+    };
+
+    return result;
   }
 
   static async getProductPreview() {

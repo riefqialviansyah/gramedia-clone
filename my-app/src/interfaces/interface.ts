@@ -23,3 +23,11 @@ export interface IWishlist {
   updatedAt: Date;
   detailProduct: IProduct;
 }
+
+export interface IPagination {
+  data: IProduct[];
+  currentPage: number;
+  currentData: number;
+  totalData: number;
+  totalPage: number;
+}
