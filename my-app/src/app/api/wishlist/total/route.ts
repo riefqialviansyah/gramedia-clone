@@ -1,5 +1,5 @@
 import WishlistModel from "@/db/models/wishlist";
-
+export const dynamic = "force-dynamic";
 export async function GET(request: Request) {
   try {
     const userId = request.headers.get("x-id-user") as string;
@@ -12,5 +12,6 @@ export async function GET(request: Request) {
     return Response.json(totalWishlist);
   } catch (error) {
     console.log(error);
+    return Response.json(error);
   }
 }

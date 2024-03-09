@@ -4,6 +4,7 @@ import Link from "next/link";
 import { cookies } from "next/headers";
 import ClientError from "@/components/error";
 const baseUrl = process.env.BASE_URL as string;
+export const dynamic = "force-dynamic";
 
 export default async function Login() {
   const handlerLogin = async (formData: FormData) => {

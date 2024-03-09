@@ -1,7 +1,7 @@
 import WishlistModel from "@/db/models/wishlist";
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
-
+export const dynamic = "force-dynamic";
 export async function POST(request: Request) {
   try {
     const productId = await request.json();

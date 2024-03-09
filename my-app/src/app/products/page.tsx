@@ -47,7 +47,6 @@ export default function Products() {
         setStatehasMore(false);
         return;
       }
-      // console.log(result.totalData, "<<<<<<<<<<");
     } catch (error) {
       console.log(error);
     }
@@ -56,7 +55,7 @@ export default function Products() {
   useEffect(() => {
     getProducts();
   }, []);
-  // console.log(baseUrl, "<<<<<<<<<<< next basuurl");
+
   return (
     <>
       <NavbarProducts updateData={updateData} setUpdateData={setUpdateData} />

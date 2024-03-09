@@ -3,7 +3,7 @@ import { createToken } from "@/db/helpers/jwt";
 import UserModel from "@/db/models/user";
 import { cookies } from "next/headers";
 import { ZodError } from "zod";
-
+export const dynamic = "force-dynamic";
 export interface IInputLogin {
   email: string;
   password: string;
@@ -12,7 +12,7 @@ export interface IInputLogin {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-
+    console.log(body, "<<<<<<<<<<<<<");
     // if (!body.email) throw { error: "Email is required" };
     // if (!body.password) throw { error: "Password is required" };
     const inputLogin: IInputLogin = {

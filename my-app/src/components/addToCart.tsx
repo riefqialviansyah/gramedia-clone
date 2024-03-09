@@ -2,7 +2,7 @@
 
 import { redirectToLogin, redirectToWishlist } from "@/actions/user";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-
+export const dynamic = "force-dynamic";
 export default function AddToCart({ productId }: { productId: string }) {
   const addWishlist = async () => {
     try {

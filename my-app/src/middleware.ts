@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { verifyJose } from "./db/helpers/jwt";
 import { redirect } from "next/navigation";
+export const dynamic = "force-dynamic";
 
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {

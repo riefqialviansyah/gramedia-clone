@@ -4,7 +4,8 @@ import { redirectToLogin } from "@/actions/user";
 import { IProduct } from "@/interfaces/interface";
 import Link from "next/link";
 import { Dispatch, SetStateAction } from "react";
-
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+export const dynamic = "force-dynamic";
 interface ProductCartProps {
   product: IProduct;
   setUpdateData: Dispatch<SetStateAction<boolean>>;
@@ -13,7 +14,7 @@ interface ProductCartProps {
 export function CartProduct({ product, setUpdateData }: ProductCartProps) {
   const addWishlist = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist/add", {
+      const response = await fetch(baseUrl + "wishlist/add", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

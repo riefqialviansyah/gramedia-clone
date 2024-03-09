@@ -1,9 +1,9 @@
 import promo2 from "../../public/banner_promo/promo2.jpg";
 import promo3 from "../../public/banner_promo/promo3.jpg";
 import { BannerPromo1 } from "@/components/banner";
+export const dynamic = "force-dynamic";
 
 // import cover book
-import cover_naruto from "../../public/cover_books/cover-naruto.jpg";
 import Footer from "@/components/footer";
 import NavbarHome from "@/components/navbar";
 import { IProduct } from "@/interfaces/interface";

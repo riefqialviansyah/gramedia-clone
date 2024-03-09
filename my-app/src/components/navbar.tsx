@@ -6,6 +6,8 @@ import Icon, { Help } from "./icon";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { isLogin, logout } from "@/actions/user";
 
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
 export default function NavbarHome() {
   return (
     <>
@@ -42,7 +44,7 @@ export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
 
   const getWishlistTotal = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist/total");
+      const response = await fetch(baseUrl + "wishlist/total");
       const result = await response.json();
 
       setTotal(result);
@@ -87,16 +89,6 @@ export function NavbarProducts({ updateData, setUpdateData }: PropsNavProduct) {
             ) : (
               ""
             )}
-            {role == "admin" ? (
-              <Link
-                href={"/products/add"}
-                className="hover:text-sky-400 hover:cursor-pointer w-25 font-bold text-xl text-center hover:underline underline-offset-8"
-              >
-                Add Product
-              </Link>
-            ) : (
-              ""
-            )}
             {hasLogin ? (
               <>
                 <div
@@ -125,7 +117,7 @@ export function NavbarProductsDetail() {
 
   const getWishlistTotal = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/wishlist/total");
+      const response = await fetch(baseUrl + "wishlist/total");
       const result = await response.json();
 
       setTotal(result);
@@ -165,16 +157,6 @@ export function NavbarProductsDetail() {
                 <span className="absolute text-center text-white font-semibold bg-sky-500 rounded-full w-6 h-6 -top-3 right-0">
                   {total}
                 </span>
-              </Link>
-            ) : (
-              ""
-            )}
-            {role == "admin" ? (
-              <Link
-                href={"/product/add"}
-                className="hover:text-sky-400 hover:cursor-pointer w-25 font-bold text-xl text-center hover:underline underline-offset-8"
-              >
-                Add Product
               </Link>
             ) : (
               ""

@@ -2,7 +2,7 @@ import ClientError from "@/components/error";
 import Icon from "@/components/icon";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-
+export const dynamic = "force-dynamic";
 const baseUrl = process.env.BASE_URL as string;
 
 export default async function Register() {

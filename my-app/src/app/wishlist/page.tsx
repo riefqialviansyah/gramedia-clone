@@ -6,7 +6,7 @@ import { Trash } from "@/components/icon";
 import { useEffect, useState } from "react";
 import { IProduct, IWishlist } from "@/interfaces/interface";
 import { ObjectId } from "mongodb";
-
+export const dynamic = "force-dynamic";
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 type GroupWishList = {
