@@ -12,6 +12,7 @@ App ini merupakan sebuah web aplikasi dengan tema eCommerce, yang dibuat dengan 
 - Framework NEXT.js
 - MongoDB
 - React-infinite-scroll-component
+- Tailwind CSS
 
 ## Halaman
 
