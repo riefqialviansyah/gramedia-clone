@@ -48,7 +48,7 @@ App ini merupakan sebuah web aplikasi dengan tema eCommerce, yang dibuat dengan 
 
 - landing
 
-![Open in Visual Studio Code](/assets/landing.png)
+![Open in Visual Studio Code](/assets/landing.PNG)
 
 - login
 
